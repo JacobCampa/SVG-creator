@@ -1,3 +1,4 @@
+// added requires needed for node modules
 const inquirer = require('inquirer')
 const jest = require('jest')
 const { writeFile } = require('fs').promises;
@@ -5,6 +6,7 @@ const MaxLengthInputPrompt = require('inquirer-maxlength-input-prompt')
 
 inquirer.registerPrompt('maxlength-input', MaxLengthInputPrompt)
 
+// questions array using inquirer to prompt user with specifics on their logo
 const questions = [
     {
         type: "maxlength-input",
@@ -30,6 +32,7 @@ const questions = [
     }
 ];
 
+// template used for response to generate to new svg file
 const template = ({ letters, textcolor, newShape, shapecolor }) =>
     `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
 
@@ -39,7 +42,7 @@ const template = ({ letters, textcolor, newShape, shapecolor }) =>
 
 </svg>`
 
-
+// defining the function to start application. used a switch to control the outcome of the shapes produced based on their choice
 function init() {
     return inquirer.prompt(questions)
         .then((response) => {
@@ -56,34 +59,13 @@ function init() {
                     newShape = `polygon points="0 200, 300 200, 150 0, 0"`
                     break;
             }
+            // writefile function to actually create the file
             writeFile('logo.svg', template({ ...response, newShape }))
         })
+        // logging the success or error catch once done
         .then(() => console.log('Generated logo.svg'))
         .catch((err) => console.error(err));
 }
 
+// calls function when you run the script in your terminal
 init()
-
-
-
-
-
-
-
-
-
-
-// GIVEN a command-line application that accepts user input
-// WHEN I am prompted for text
-// THEN I can enter up to three characters
-// WHEN I am prompted for the text color
-// THEN I can enter a color keyword (OR a hexadecimal number)
-// WHEN I am prompted for a shape
-// THEN I am presented with a list of shapes to choose from: circle, triangle, and square
-// WHEN I am prompted for the shape's color
-// THEN I can enter a color keyword (OR a hexadecimal number)
-// WHEN I have entered input for all the prompts
-// THEN an SVG file is created named `logo.svg`
-// AND the output text "Generated logo.svg" is printed in the command line
-// WHEN I open the `logo.svg` file in a browser
-// THEN I am shown a 300x200 pixel image that matches the criteria I entered
