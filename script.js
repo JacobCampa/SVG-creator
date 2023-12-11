@@ -3,7 +3,7 @@ const inquirer = require('inquirer')
 const jest = require('jest')
 const { writeFile } = require('fs').promises;
 const MaxLengthInputPrompt = require('inquirer-maxlength-input-prompt')
-const createShape = require('./lib/shapes') // importing shapes.js file
+const Shapes = require('./lib/shapes') // importing shapes.js file
 
 inquirer.registerPrompt('maxlength-input', MaxLengthInputPrompt)
 
@@ -35,8 +35,10 @@ const questions = [
 
 // template used for response to generate to new svg file
 const template = ({ letters, textcolor, shape, shapecolor }) => {
-    // Call the createShape function with shape and shapecolor
-    const shapeSvg = createShape(shape, shapecolor);
+    // Create an instance of the Shapes class
+    const shapeInstance = new Shapes(shape, shapecolor);
+    // Call the createSvgElement method to get the SVG code
+    const shapeSvg = shapeInstance.createSvgElement();
     return `
         <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
             ${shapeSvg}
@@ -47,13 +49,17 @@ const template = ({ letters, textcolor, shape, shapecolor }) => {
 function init() {
     return inquirer.prompt(questions)
         .then((response) => {
-            // Call the createShape function with shape and shapecolor
-            const shapeSvg = createShape(response.shape, response.shapecolor);
+            // Create an instance of the Shapes class
+            const shapeInstance = new Shapes(response.shape, response.shapecolor);
+            // Call the createSvgElement method to get the SVG code
+            const shapeSvg = shapeInstance.createSvgElement();
             return writeFile('logo.svg', template({ ...response, newShape: shapeSvg }));
         })
         .then(() => console.log('Generated logo.svg'))
         .catch((err) => console.error(err));
 }
+
+init();
 
 
 
