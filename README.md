@@ -5,7 +5,7 @@
 The purpose of this app is to use the CLI to create a basic logo as an SVG file. using basic prompts with inquirer you will be given enough information to create a basic shape (circle, square, or triangle) with a 3 letter abriviation in the middle. You can choose colors for both the text and the shape using the word (ex. blue) or with hexidecimal (ex. #0000FF).
 Creating this application has tought me a better understanding of how to use node packages and the javascript used to run similar applications.
 
-## Table of Contents (Optional)
+## Table of Contents
 
 - [Installation](#installation)
 - [Usage](#usage)
