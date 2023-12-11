@@ -40,10 +40,14 @@ Once you have <mark>Nodejs</mark> downloaded you will need to open the Repo belo
 When the code is accessed, make sure the node modules are up to date by imputting the following command:
 
 > `npm i`
+>
+> First thing to do after you install everything use the following script to run the tests and make sure everything is passing before startiing the application:
+>
+> `npm test`
 
 once you have made sure everything is up to date, you may run the application using the command:
 
-> `node index.js`
+> `npm start`
 
 You should then be greeted with a series of prompts related to the creation of your SVG Logo. Below is a screenshot of the questions you will be prompted with.
 
