@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node script.js"
   },
   "dependencies": {
     "inquirer": "^8.2.4",

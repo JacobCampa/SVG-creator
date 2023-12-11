@@ -59,9 +59,7 @@ function init() {
         .catch((err) => console.error(err));
 }
 
-init();
-
 
 
 // calls function when you run the script in your terminal
-init()
+init();
