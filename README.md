@@ -25,7 +25,11 @@ Below is a short Demo video showing a rundown on using this application. Alterna
 
 
 
-https://github.com/JacobCampa/SVG-creator/assets/136763573/3dca7736-05df-4dc2-9278-fc81eb761c78
+
+https://github.com/JacobCampa/SVG-creator/assets/136763573/0b09e0a8-586c-4a5d-a4d7-eced3e353eca
+
+
+
 
 
 
