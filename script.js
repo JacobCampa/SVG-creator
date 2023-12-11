@@ -3,6 +3,7 @@ const inquirer = require('inquirer')
 const jest = require('jest')
 const { writeFile } = require('fs').promises;
 const MaxLengthInputPrompt = require('inquirer-maxlength-input-prompt')
+const createShape = require('./lib/shapes') // importing shapes.js file
 
 inquirer.registerPrompt('maxlength-input', MaxLengthInputPrompt)
 
@@ -33,39 +34,28 @@ const questions = [
 ];
 
 // template used for response to generate to new svg file
-const template = ({ letters, textcolor, newShape, shapecolor }) =>
-    `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+const template = ({ letters, textcolor, shape, shapecolor }) => {
+    // Call the createShape function with shape and shapecolor
+    const shapeSvg = createShape(shape, shapecolor);
+    return `
+        <svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+            ${shapeSvg}
+            <text x="150" y="125" font-size="60" text-anchor="middle" fill="${textcolor}">${letters}</text>
+        </svg>`;
+};
 
-<${newShape} fill="${shapecolor}" />
-
-<text x="150" y="125" font-size="60" text-anchor="middle" fill="${textcolor}">${letters}</text>
-
-</svg>`
-
-// defining the function to start application. used a switch to control the outcome of the shapes produced based on their choice
 function init() {
     return inquirer.prompt(questions)
         .then((response) => {
-            const shapeChoice = response.shape
-            let newShape = ""
-            switch (shapeChoice) {
-                case "circle":
-                    newShape = `circle cx="150" cy="110" r="80"`
-                    break;
-                case "square":
-                    newShape = `rect x="50" y="25" width="200" height="200"`
-                    break;
-                case "triangle":
-                    newShape = `polygon points="0 200, 300 200, 150 0, 0"`
-                    break;
-            }
-            // writefile function to actually create the file
-            writeFile('logo.svg', template({ ...response, newShape }))
+            // Call the createShape function with shape and shapecolor
+            const shapeSvg = createShape(response.shape, response.shapecolor);
+            return writeFile('logo.svg', template({ ...response, newShape: shapeSvg }));
         })
-        // logging the success or error catch once done
         .then(() => console.log('Generated logo.svg'))
         .catch((err) => console.error(err));
 }
+
+
 
 // calls function when you run the script in your terminal
 init()
