@@ -41,7 +41,7 @@ When the code is accessed, make sure the node modules are up to date by imputtin
 
 > `npm i`
 >
-> First thing to do after you install everything use the following script to run the tests and make sure everything is passing before startiing the application:
+First thing to do after you install everything use the following script to run the tests and make sure everything is passing before startiing the application:
 >
 > `npm test`
 
